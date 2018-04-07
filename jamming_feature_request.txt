@@ -1,0 +1,27 @@
+Feature Request: Display only new songs in search results
+April 4th 2018
+
+##OBJECTIVE
+To only display songs in the search results that are not currently present in the playlist. 
+
+##BACKGROUND 
+Users can currently search for any song, artist or album with the Jamming app. However songs already found in their playlist can appear in search results. This creates several problems at the user experience level:
+    * It can be tedious for users to read through the list and skip songs that they already have in their playlist.
+
+    * Users can accidently add songs that are already in their playlist, causing duplicates.
+    
+    * Overall, these can be frustrating and time consuming, creating a poor user experience. Poor user experience can lead to raising drop-off rates.
+
+This feature accomplishes the following:
+
+* {... continue here!!!}
+
+
+##TECHNICAL DESIGN
+
+{This section should lay out all of the information needed to implement this feature. In the context of React, this could include new components and their functionality, existing component updates, how to address edge cases, and any other information an engineer would need before implementing this feature. 
+For front-end changes, this section will often include design mocks or wireframes to specify how the design of the application needs to be updated.}
+
+##CAVEATS
+
+{This section is used to lay out alternative solutions and their respective drawbacks, as well as potential drawbacks to the proposed solution above. This is used to make it clear why the technical implementation detailed previously was chosen instead of alternatives. It additionally allows stakeholders or other developers to consider those drawbacks and choose one of the alternate solutions if they prefer it. This may occur if they feel the benefits or drawbacks of that solution are more desirable than the current solution, or if they can identify other benefits and drawbacks not currently listed.}
