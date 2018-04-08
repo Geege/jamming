@@ -1,6 +1,6 @@
 const clientId = 'e8159db2d1694f409c54d3e7222eda68'
 let accessToken = ''
-const redirectUri = 'http://localhost:3000/' //'https://geege_playlist.surge.sh/'
+const redirectUri = 'http://localhost:3000/' // 'https://geege_playlist.surge.sh/'
 let clearingTimer
 
 const Spotify = {
@@ -30,7 +30,7 @@ const Spotify = {
   },
 
   search (term) {
-    let accessToken = Spotify.getAccessToken();
+    let accessToken = Spotify.getAccessToken()
 
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
@@ -40,24 +40,20 @@ const Spotify = {
       if (jsonRes.tracks) {
         return Promise.resolve(jsonRes.tracks.items.map(track => {
           return {
-              id: track.id,
-              name: track.name,
-              artist: track.artists[0].name,
-              album: track.album.name,
-              uri: track.uri
-            }
+            id: track.id,
+            name: track.name,
+            artist: track.artists[0].name,
+            album: track.album.name,
+            uri: track.uri
+          }
         }))
       } else {
-        return Promise.resolve([]);
+        return Promise.resolve([])
       }
     })
   },
 
   savePlaylist (playlistName, trackURIs) {
-    if (!playlistName && !trackURIs) {
-      return
-    }
-
     let accessToken = Spotify.getAccessToken()
     let headers = {Authorization: `Bearer ${accessToken}`}
     let userId
@@ -74,12 +70,13 @@ const Spotify = {
     }).then(response => response.json()
     ).then(jsonResponse => {
       let playlistId = jsonResponse.id
-      return fetch(`/v1/users/${userId}/playlists/${playlistId}/tracks`, {
+      return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({uri: trackURIs})
+        body: JSON.stringify({uris: trackURIs})
       })
     })
+    return 'Playlist saved';
   }
 }
 

@@ -13,41 +13,41 @@ class App extends Component {
 
     this.state.searchResults =
       [
-        {
-          id: 3,
-          name: 'Le lac',
-          artist: 'Julien Dore',
-          album: 'yahyah'
-        },
-        {
-          id: 4,
-          name: 'Castle for Sale',
-          artist: 'Session Victim',
-          album: 'SV'
-        },
-        {
-          id: 5,
-          name: 'Awake Again',
-          artist: 'Duke Hugh',
-          album: 'Duke Hugh'
-        }
+        // {
+        //   id: 3,
+        //   name: 'Le lac',
+        //   artist: 'Julien Dore',
+        //   album: 'yahyah'
+        // },
+        // {
+        //   id: 4,
+        //   name: 'Castle for Sale',
+        //   artist: 'Session Victim',
+        //   album: 'SV'
+        // },
+        // {
+        //   id: 5,
+        //   name: 'Awake Again',
+        //   artist: 'Duke Hugh',
+        //   album: 'Duke Hugh'
+        // }
       ]
 
     this.state.playlistName = 'Awesome playlist'
 
     this.state.playlistTracks = [
-      {
-        id: 1,
-        name: 'Glue',
-        artist: 'Bicep',
-        album: 'Woosh'
-      },
-      {
-        id: 2,
-        name: 'Full Circle',
-        artist: 'George Fitzgerald',
-        album: 'GF'
-      }
+      // {
+      //   id: 1,
+      //   name: 'Glue',
+      //   artist: 'Bicep',
+      //   album: 'Woosh'
+      // },
+      // {
+      //   id: 2,
+      //   name: 'Full Circle',
+      //   artist: 'George Fitzgerald',
+      //   album: 'GF'
+      // }
     ]
 
     this.addTrack = this.addTrack.bind(this)
@@ -82,7 +82,7 @@ class App extends Component {
 
     Spotify.savePlaylist(this.state.playlistName, trackURIs).then(
       this.setState({
-        playlistName: 'New Playlist',
+        playlistName: 'Sweet Playlist',
         searchResults: []
       })
     )
