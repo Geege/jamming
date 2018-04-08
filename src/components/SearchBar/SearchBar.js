@@ -21,11 +21,8 @@ class SearchBar extends Component {
 
   enterClick (event) {
     const enterText = document.getElementById('enter-text')
-    console.log('enter triggered');
     if (event.keyCode === 13) {
       this.search(enterText.value)
-      document.addEventListener('keydown', this.enterClick.bind)
-      console.log('Pressed Enter');
     }
   }
 
