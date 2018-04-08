@@ -9,6 +9,8 @@ Users can currently search for any song, artist or album with the Jamming app. H
     * It can be tedious for users to read through the list and skip songs that they already have in their playlist.
 
     * Users can accidently add songs that are already in their playlist, causing duplicates.
+
+    * Songs are not removed from the results list when added to the playlist and vice versa.
     
     * Overall, these can be frustrating and time consuming, creating a poor user experience. Poor user experience can lead to raising drop-off rates.
 
