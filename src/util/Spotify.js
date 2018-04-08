@@ -1,6 +1,6 @@
 const clientId = 'e8159db2d1694f409c54d3e7222eda68'
 let accessToken = ''
-const redirectUri = 'http://localhost:3000/' // 'https://geege_playlist.surge.sh/'
+const redirectUri = 'http://localhost:3000/' //'https://geege_playlist.surge.sh/' 
 let clearingTimer
 
 const Spotify = {
@@ -60,14 +60,14 @@ const Spotify = {
     let fetchedUserId
 
     /*
-     * First, we get the user ID of the current user.
+     * First, get the user ID of the current user.
      */
     return fetch(`https://api.spotify.com/v1/me`, {headers: headers}
     ).then(response => response.json()
     ).then(jsonResponse => {
       return Promise.resolve(jsonResponse.id)
     /*
-     * Then, we list the existing playlists for the current user.
+     * Then, list the existing playlists for the current user.
      */
     }).then(userId => {
       fetchedUserId = userId

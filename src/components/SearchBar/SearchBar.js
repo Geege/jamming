@@ -20,7 +20,7 @@ class SearchBar extends Component {
   }
 
   enterClick (event) {
-    const enterText = document.getElementById('enter-text')
+    const enterText = document.getElementById('search-text')
     if (event.keyCode === 13) {
       this.search(enterText.value)
     }
@@ -29,11 +29,11 @@ class SearchBar extends Component {
   render () {
     return (
       <div className='SearchBar'>
-        <input id='enter-text'
+        <input id='search-text'
           placeholder='Enter A Song, Album, or Artist'
           onKeyDown={this.enterClick}
         />
-        <a id='search-text' onClick={this.searchClick} >SEARCH</a>
+        <a onClick={this.searchClick} >SEARCH</a>
       </div>
     )
   }

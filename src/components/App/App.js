@@ -33,7 +33,7 @@ class App extends Component {
         // }
       ]
 
-    this.state.playlistName = 'Awesome Jamming Playlist'
+    this.state.playlistName = 'Awesome Jams Playlist'
 
     this.state.playlistTracks = [
       // {
