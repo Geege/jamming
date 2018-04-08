@@ -33,7 +33,7 @@ class App extends Component {
         // }
       ]
 
-    this.state.playlistName = 'Awesome playlist'
+    this.state.playlistName = 'Awesome Jamming Playlist'
 
     this.state.playlistTracks = [
       // {
@@ -82,7 +82,7 @@ class App extends Component {
 
     Spotify.savePlaylist(this.state.playlistName, trackURIs).then(
       this.setState({
-        playlistName: 'Sweet Playlist',
+        playlistName: this.state.playlistName,
         searchResults: []
       })
     )

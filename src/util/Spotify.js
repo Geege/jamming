@@ -57,25 +57,57 @@ const Spotify = {
 
     let accessToken = Spotify.getAccessToken()
     let headers = {Authorization: `Bearer ${accessToken}`}
-    let userId
+    let fetchedUserId
 
+    /*
+     * First, we get the user ID of the current user.
+     */
     return fetch(`https://api.spotify.com/v1/me`, {headers: headers}
     ).then(response => response.json()
     ).then(jsonResponse => {
-      userId = jsonResponse.id
-      return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({name: playlistName})
-      })
+      return Promise.resolve(jsonResponse.id)
+    /*
+     * Then, we list the existing playlists for the current user.
+     */
+    }).then(userId => {
+      fetchedUserId = userId
+      return fetch('https://api.spotify.com/v1/me/playlists', {headers: headers})
     }).then(response => response.json()
-    ).then(jsonResponse => {
-      let playlistId = jsonResponse.id
-      return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({uris: trackURIs})
+    ).then(listPlaylistsRes => {
+      let foundPlaylist = false
+      let playlistId
+
+      foundPlaylist = listPlaylistsRes.items.find(function isAwesomePlaylist(playlist) {
+        return playlist.name === playlistName
       })
+      /*
+     * If playlist exists, replace with new tracks.
+     */
+      if (foundPlaylist) {
+        playlistId = foundPlaylist.id
+        return fetch(`https://api.spotify.com/v1/users/${fetchedUserId}/playlists/${playlistId}/tracks`, {
+          method: 'PUT',
+          headers: headers,
+          body: JSON.stringify({uris: trackURIs})
+        })
+      /*
+     * Else, create a new playlist.
+     */
+      } else {
+        return fetch(`https://api.spotify.com/v1/users/${fetchedUserId}/playlists`, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({name: playlistName})
+        }).then(response => response.json()
+        ).then(jsonResponse => {
+          let playlistId = jsonResponse.id
+          return fetch(`https://api.spotify.com/v1/users/${fetchedUserId}/playlists/${playlistId}/tracks`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({uris: trackURIs})
+          })
+        })
+      }
     })
   }
 }

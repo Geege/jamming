@@ -16,9 +16,9 @@ class PlayList extends Component {
   render () {
     return (
       <div className='Playlist'>
-        <h2 className="no-padding"> Create an
-          <input value={'Awesome Playlist'} />
-        </h2>
+        <h3 className="no-padding"> Create an
+          <input value={'Awesome Jams Playlist'} />
+        </h3>
         <TrackList 
           tracks={this.props.playlistTracks} 
           onRemove={this.props.onRemove}
