@@ -4,7 +4,6 @@ import {Track} from '../Track/Track'
 
 export class TrackList extends Component {
 
-
   render () {
     return (
       <div className='TrackList'>

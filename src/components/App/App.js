@@ -12,43 +12,11 @@ class App extends Component {
     this.state = {}
 
     this.state.searchResults =
-      [
-        // {
-        //   id: 3,
-        //   name: 'Le lac',
-        //   artist: 'Julien Dore',
-        //   album: 'yahyah'
-        // },
-        // {
-        //   id: 4,
-        //   name: 'Castle for Sale',
-        //   artist: 'Session Victim',
-        //   album: 'SV'
-        // },
-        // {
-        //   id: 5,
-        //   name: 'Awake Again',
-        //   artist: 'Duke Hugh',
-        //   album: 'Duke Hugh'
-        // }
-      ]
+      []
 
     this.state.playlistName = 'Awesome Jams Playlist'
 
-    this.state.playlistTracks = [
-      // {
-      //   id: 1,
-      //   name: 'Glue',
-      //   artist: 'Bicep',
-      //   album: 'Woosh'
-      // },
-      // {
-      //   id: 2,
-      //   name: 'Full Circle',
-      //   artist: 'George Fitzgerald',
-      //   album: 'GF'
-      // }
-    ]
+    this.state.playlistTracks = []
 
     this.addTrack = this.addTrack.bind(this)
     this.removeTrack = this.removeTrack.bind(this)
@@ -58,19 +26,53 @@ class App extends Component {
   }
 
   addTrack (track) {
-    let newTrack = this.state.playlistTracks
-    if (!newTrack.includes(track)) {
-      newTrack.push(track)
+    /*
+     * First, add the track to the playlist.
+     */
+    let playlistTracks = this.state.playlistTracks
+    if (!playlistTracks.includes(track)) {
+      playlistTracks.push(track)
+
+      /*
+       * Then, remove it from search results, but only if we added the track to the playlist.
+       */
+      let trackIdx = -1
+      this.state.searchResults.forEach(function findAddedTrack (searchResTrack, searchResTrackIdx) {
+        if (searchResTrack.id === track.id) {
+          trackIdx = searchResTrackIdx
+        }
+      })
+
+      if (trackIdx !== -1) {
+        this.state.searchResults.splice(trackIdx, 1)
+      }
+
+      this.setState({
+        playlistTracks: playlistTracks,
+        searchResults: this.state.searchResults
+      })
     }
-    this.setState({playlistTracks: newTrack})
   }
 
   removeTrack (track) {
-    let newTrack = this.state.playlistTracks
-    newTrack = newTrack.filter(function doFilter (currentTrack) {
-      return currentTrack.id !== track.id
-    })
-    this.setState({playlistTracks: newTrack})
+    /*
+     * First, remove the track to the playlist.
+     */
+    let playlistTracks = this.state.playlistTracks
+    if (playlistTracks.includes(track)) {
+      playlistTracks = playlistTracks.filter(function doFilter (currentTrack) {
+        return currentTrack.id !== track.id
+      })
+      /*
+       * Then, add it to search results, but only if we removed the track to the playlist.
+       */
+      this.state.searchResults.push(track)
+
+      this.setState({
+        playlistTracks: playlistTracks,
+        searchResults: this.state.searchResults
+      })
+    }
   }
 
   updatePlaylistName (name) {
@@ -88,7 +90,7 @@ class App extends Component {
     )
   }
 
-  search(term) {
+  search (term) {
     Spotify.search(term).then(searchResults => {
       this.setState({searchResults: searchResults})
     })
@@ -99,7 +101,7 @@ class App extends Component {
       <div>
         <h1>Ja<span className='highlight'>mmm</span>ing</h1>
         <div className='App'>
-          <SearchBar 
+          <SearchBar
             onSearch={this.search}
           />
           <div className='App-playlist'>

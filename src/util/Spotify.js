@@ -1,6 +1,7 @@
 const clientId = 'e8159db2d1694f409c54d3e7222eda68'
 let accessToken = ''
-const redirectUri = 'https://geege_playlist.surge.sh/' //'http://localhost:3000/' 
+const redirectUri = 'https://geege_playlist.surge.sh/' 
+//'http://localhost:3000/' 
 let clearingTimer
 
 const Spotify = {

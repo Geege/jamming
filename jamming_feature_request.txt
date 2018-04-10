@@ -1,11 +1,11 @@
-Feature Request: Only display songs in search results that are not already added to the playlist
+Feature Request: Remove songs from search results when added to the playlist
 April 9th 2018
 
 ## OBJECTIVE
-To only display songs in the search results that are not currently present in the playlist. 
+To remove tracks in the search results as they are added to the playlist, and return tracks back to the search results if they are removed from the playlist.
 
 ## BACKGROUND 
-Users can currently search for any song, artist or album with the Jamming app. However songs already found in their playlist can appear in the search results. This creates several problems at the user experience level:
+Users can currently search for any song, artist or album with the Jamming app. However songs found in their playlist remain in the search results list, once they've been added. This creates several problems at the user experience level:
 
 - It can be tedious for users to read through the list and skip songs that they already have in their playlist.
 
@@ -26,18 +26,30 @@ This feature accomplishes the following:
 
 ## TECHNICAL DESIGN
 
-### Check that songs are not already in the playlist before adding to search results list
+### Remove track from search results list when added to playlist
 
-We will create a new method called matchTracks in the SearchResults component to check if the id of each track in the search results matches any of the track ids in the PlayList component. If there is a match of track.ids, then that track will not get added to the search results list.
+First we alter the addTrack() method in App.js to add the track from the search results lists when it gets added to the user's playlist. 
 
-### Remove track from search results when added to playlist
+To do this, we create a new variable in the method once we've added the track to the playlist. This variable (trackIdx) will take into account the track's index and set it at -1 (an arbitrary that has no value in an index).
 
-We will create a method in the SearchResults component to hide a track from the search results list, when added to the playlist. 
+Then we iterate over the searchResults array using forEach to find the index of the track to remove from the search results.
 
-### Remove track from playlist
+If we find a track to remove from the list, we remove the track and update the state for both the playlist and the search results list.  
 
+
+### Add track to search results list when removing track from playlist
+
+Here we alter the removeTrack() method in App.js to add the track being removed from the playlist to the search results list.
+
+First, we remove the track from the playlist (as it is already done in the app). 
+
+Then we add the track to the search results list by using the push() method.
+
+Then we update both the playlist and the search results' states.  
 
 
 ## CAVEATS
 
+### Removed playlist track gets pushed to the bottom of search results
 
+With this implementation, removed playlist tracks find themselves at the bottom of search results list. Ideally, they would appear in the original search results order or at the top of the list so that users are aware that they've been returned to search results.
